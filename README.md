@@ -1,27 +1,36 @@
-1. Stworzenie namesapce i resource qouta poleceniem:
-
+### 1. Stworzenie namesapce i resource qouta poleceniem:
+```sh
 kubectl apply -f lab4.yaml
+```
 
 W wyniku otrzymamy:
+```sh
 $ kubectl apply -f lab4.yaml
 namespace/lab4 created
 resourcequota/lab4qouta created
+```
 
-2. Stworzenie deploymentu z 3 replikami z pliku deployment.yaml:
+### 2. Stworzenie deploymentu z 3 replikami z pliku deployment.yaml:
+```sh
 kubectl create -f deployment.yaml --namespace=lab4
+```
 
-3. Weryfikacja poleceniami:
-
+### 3. Weryfikacja poleceniami:
+```sh
 $ kubectl get pods -n lab4
 NAME                              READY   STATUS    RESTARTS   AGE
 restrictednginx-f4d88994d-g84zt   1/1     Running   0          60s
 restrictednginx-f4d88994d-stdbw   1/1     Running   0          60s
 restrictednginx-f4d88994d-tc22p   1/1     Running   0          60s
+```
 
+```sh
 $ kubectl get rs -n lab4
 NAME                        DESIRED   CURRENT   READY   AGE
 restrictednginx-f4d88994d   3         3         3       109s
+```
 
+```sh
 $ kubectl describe deployments -n lab4
 Name:                   restrictednginx
 Namespace:              lab4
@@ -60,3 +69,5 @@ Events:
   Type    Reason             Age    From                   Message
   ----    ------             ----   ----                   -------
   Normal  ScalingReplicaSet  2m11s  deployment-controller  Scaled up replica set restrictednginx-f4d88994d to 3
+```
+```
